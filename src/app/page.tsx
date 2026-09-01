@@ -85,24 +85,24 @@ export default function HomePage() {
           </div>
 
           {/* Quick Action CTA Row */}
-          <div className="flex flex-wrap items-center gap-3 pt-2">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
             <button
               onClick={() => setIsAddHarvestOpen(true)}
-              className="px-6 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-sm shadow-lg hover:shadow-emerald-600/30 transition-all flex items-center gap-2 cursor-pointer"
+              className="px-6 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-sm shadow-lg hover:shadow-emerald-600/30 transition-all flex items-center justify-center gap-2 cursor-pointer"
             >
               <Plus className="w-4 h-4" />
               <span>List Fresh Harvest</span>
             </button>
             <Link
               href="/map"
-              className="px-6 py-3.5 rounded-xl bg-stone-800 hover:bg-stone-700 text-stone-200 font-semibold text-sm border border-stone-700 transition-all flex items-center gap-2"
+              className="px-6 py-3.5 rounded-xl bg-stone-800 hover:bg-stone-700 text-stone-200 font-semibold text-sm border border-stone-700 transition-all flex items-center justify-center gap-2"
             >
               <Compass className="w-4 h-4" />
               <span>Explore Ottawa Living Map</span>
             </Link>
             <Link
               href="/swap"
-              className="px-6 py-3.5 rounded-xl bg-indigo-900/50 hover:bg-indigo-900/80 text-indigo-200 font-semibold text-sm border border-indigo-700/60 transition-all flex items-center gap-2"
+              className="px-6 py-3.5 rounded-xl bg-indigo-900/50 hover:bg-indigo-900/80 text-indigo-200 font-semibold text-sm border border-indigo-700/60 transition-all flex items-center justify-center gap-2"
             >
               <RefreshCw className="w-4 h-4 text-indigo-400" />
               <span>View SwapMatch Engine</span>

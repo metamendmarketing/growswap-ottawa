@@ -4,6 +4,7 @@ import './globals.css';
 import { AppStoreProvider } from '@/lib/data/store';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
+import { MobileBottomNav } from '@/components/layout/MobileBottomNav';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 
@@ -23,8 +24,9 @@ export default function RootLayout({
       <body className={`${inter.variable} font-sans min-h-screen flex flex-col antialiased bg-stone-50 text-stone-900`}>
         <AppStoreProvider>
           <Navbar />
-          <main className="flex-1 flex flex-col">{children}</main>
+          <main className="flex-1 flex flex-col pb-20 lg:pb-0">{children}</main>
           <Footer />
+          <MobileBottomNav />
         </AppStoreProvider>
       </body>
     </html>

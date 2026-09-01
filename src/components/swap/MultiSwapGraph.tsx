@@ -116,10 +116,10 @@ export function MultiSwapGraph({ swapMatch, onPropose }: MultiSwapGraphProps) {
         <button
           onClick={handlePropose}
           disabled={proposed}
-          className={`px-5 py-2.5 rounded-xl text-xs font-bold tracking-wide transition-all shrink-0 cursor-pointer shadow-md ${
+          className={`w-full sm:w-auto px-6 py-3 rounded-xl text-xs font-bold tracking-wide transition-all shrink-0 cursor-pointer shadow-md text-center ${
             proposed
               ? 'bg-emerald-600 text-white cursor-default'
-              : 'bg-indigo-600 hover:bg-indigo-700 text-white hover:shadow-lg'
+              : 'bg-indigo-600 hover:bg-indigo-700 text-white hover:shadow-lg active:scale-98'
           }`}
         >
           {proposed ? '✓ Proposal Broadcast to Network' : 'Propose 3-Way Exchange →'}

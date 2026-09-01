@@ -14,7 +14,8 @@ import {
   ShieldCheck, 
   Maximize2,
   Calendar,
-  AlertTriangle
+  AlertTriangle,
+  X
 } from 'lucide-react';
 import { Coordinates, Listing, Profile, SwapMatch } from '@/types';
 import { OTTAWA_CENTER, OTTAWA_COMMUNITIES, OTTAWA_COMMUNITY_GARDENS } from '@/lib/data/ottawa-geo';
@@ -111,28 +112,28 @@ export function OttawaMap({
   return (
     <div className={`relative flex flex-col md:flex-row w-full ${heightClassName} bg-stone-900 rounded-2xl overflow-hidden shadow-2xl border border-stone-800`}>
       {/* Map Header Overlay Controls */}
-      <div className="absolute top-4 left-4 z-20 flex flex-wrap items-center gap-2">
+      <div className="absolute top-3 left-3 right-3 z-20 flex items-center gap-2 overflow-x-auto scrollbar-none pb-1">
         {/* Layer Selector */}
-        <div className="flex items-center gap-1.5 p-1 bg-stone-900/90 backdrop-blur-md rounded-xl border border-stone-700/80 shadow-lg text-xs">
+        <div className="flex items-center gap-1 p-1 bg-stone-900/90 backdrop-blur-md rounded-xl border border-stone-700/80 shadow-lg text-xs shrink-0">
           <button
             onClick={() => setActiveLayer('AVAILABLE_NOW')}
-            className={`px-3 py-1.5 rounded-lg font-medium transition-all cursor-pointer ${
+            className={`px-2.5 py-1.5 rounded-lg font-medium transition-all cursor-pointer whitespace-nowrap ${
               activeLayer === 'AVAILABLE_NOW' ? 'bg-emerald-600 text-white shadow-xs' : 'text-stone-300 hover:text-white'
             }`}
           >
-            🟢 Available Now
+            🟢 Available
           </button>
           <button
             onClick={() => setActiveLayer('SURPLUS_RESCUE')}
-            className={`px-3 py-1.5 rounded-lg font-medium transition-all cursor-pointer ${
+            className={`px-2.5 py-1.5 rounded-lg font-medium transition-all cursor-pointer whitespace-nowrap ${
               activeLayer === 'SURPLUS_RESCUE' ? 'bg-amber-600 text-white shadow-xs' : 'text-stone-300 hover:text-white'
             }`}
           >
-            🚨 Surplus Rescue
+            🚨 Rescue
           </button>
           <button
             onClick={() => setActiveLayer('SWAPS')}
-            className={`px-3 py-1.5 rounded-lg font-medium transition-all cursor-pointer ${
+            className={`px-2.5 py-1.5 rounded-lg font-medium transition-all cursor-pointer whitespace-nowrap ${
               activeLayer === 'SWAPS' ? 'bg-indigo-600 text-white shadow-xs' : 'text-stone-300 hover:text-white'
             }`}
           >
@@ -140,7 +141,7 @@ export function OttawaMap({
           </button>
           <button
             onClick={() => setActiveLayer('COMMUNITY_GARDENS')}
-            className={`px-3 py-1.5 rounded-lg font-medium transition-all cursor-pointer ${
+            className={`px-2.5 py-1.5 rounded-lg font-medium transition-all cursor-pointer whitespace-nowrap ${
               activeLayer === 'COMMUNITY_GARDENS' ? 'bg-blue-600 text-white shadow-xs' : 'text-stone-300 hover:text-white'
             }`}
           >
@@ -148,19 +149,19 @@ export function OttawaMap({
           </button>
           <button
             onClick={() => setActiveLayer('SUPPLY_GAPS')}
-            className={`hidden sm:inline-block px-3 py-1.5 rounded-lg font-medium transition-all cursor-pointer ${
+            className={`px-2.5 py-1.5 rounded-lg font-medium transition-all cursor-pointer whitespace-nowrap ${
               activeLayer === 'SUPPLY_GAPS' ? 'bg-rose-600 text-white shadow-xs' : 'text-stone-300 hover:text-white'
             }`}
           >
-            📊 Supply Gaps
+            📊 Gaps
           </button>
         </div>
 
         {/* Radius Selector */}
-        <div className="hidden lg:flex items-center gap-1 px-3 py-1.5 bg-stone-900/90 backdrop-blur-md rounded-xl border border-stone-700/80 text-xs font-mono text-stone-300">
+        <div className="flex items-center gap-1 px-2.5 py-1 bg-stone-900/90 backdrop-blur-md rounded-xl border border-stone-700/80 text-xs font-mono text-stone-300 shrink-0">
           <Compass className="w-3.5 h-3.5 text-emerald-400" />
           <span>Radius:</span>
-          {[5, 10, 15, 25, 50].map((r) => (
+          {[5, 10, 15, 25].map((r) => (
             <button
               key={r}
               onClick={() => setRadiusKm(r)}
@@ -423,6 +424,41 @@ export function OttawaMap({
             ))}
           </div>
         </div>
+
+        {/* Mobile Slide-Up Floating Harvest Card */}
+        {selectedPin && (
+          <div className="md:hidden absolute inset-x-3 bottom-18 z-30 p-4 bg-stone-900/95 backdrop-blur-xl border border-stone-700/90 rounded-2xl shadow-2xl animate-in slide-in-from-bottom-4 duration-200">
+            <div className="flex items-start justify-between">
+              <div className="flex items-center gap-3">
+                <span className="text-3xl">{selectedPin.product?.emoji || '🥬'}</span>
+                <div>
+                  <h4 className="font-bold text-white text-sm line-clamp-1">{selectedPin.title}</h4>
+                  <p className="text-[11px] text-stone-400 font-mono">
+                    {selectedPin.community_name || 'Ottawa'} • {selectedPin.seller?.display_name}
+                  </p>
+                </div>
+              </div>
+              <button
+                onClick={() => setSelectedPin(null)}
+                className="p-1.5 rounded-lg bg-stone-800 text-stone-400 hover:text-white"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            <div className="mt-3 flex items-center justify-between gap-2">
+              <span className="text-xs font-mono font-bold text-emerald-400">
+                {selectedPin.listing_type === 'RESCUE' ? 'FREE RESCUE' : `$${selectedPin.price?.toFixed(2)}/${selectedPin.unit}`}
+              </span>
+              <Link
+                href={`/market/${selectedPin.id}`}
+                className="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold font-mono transition-colors shadow-sm"
+              >
+                View Details & Swap →
+              </Link>
+            </div>
+          </div>
+        )}
 
         {/* Hovered grower badge tooltip */}
         {hoveredGrower && (
