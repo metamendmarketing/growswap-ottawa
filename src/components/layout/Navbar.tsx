@@ -27,7 +27,7 @@ export function Navbar() {
     { href: '/', label: 'Overview', icon: Activity },
     { href: '/map', label: 'Living Map', icon: Map },
     { href: '/market', label: 'Marketplace', icon: ShoppingBag },
-    { href: '/swap', label: 'SwapMatch', icon: ArrowLeftRight, badge: '3-Way' },
+    { href: '/swap', label: 'SwapMatch', icon: ArrowLeftRight },
     { href: '/garden', label: 'My Garden', icon: Sprout },
     { href: '/plan', label: '2027 Plan', icon: CalendarDays },
     { href: '/ottawa', label: 'Food Grid', icon: LayoutGrid },
